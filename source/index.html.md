@@ -77,7 +77,7 @@ API 请求在通过 internet 传输的过程中极有可能被篡改，为了确
 
 一个合法的请求由以下几部分组成：
 
-- 方法请求地址：即访问服务器地址 api.huobi.pro，比如 api.huobi.pro/v1/order/orders。
+- 方法请求地址：即访问服务器地址 demo.com，比如 demo.com/open/spot/kline。
 - 请求头部：Content-Type: application/json 
 - API 访问Id（AccessKeyId）：您申请的 API Key 中的 Access Key。
 - 签名方法（SignatureMethod）：用户计算签名的基于哈希的协议，此处使用 HmacSHA256。
