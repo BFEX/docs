@@ -452,7 +452,43 @@ side | string | 方向，buy=买入，sell=卖出
 time } | long | 时间戳，单位秒
 
 
+# 账户相关
 
+## 账户余额
 
+### HTTP 请求
+- GET `/open/user/assets`
 
+> Response:
+
+```json
+{
+    "status": 200,
+    "msg": "ok",
+    "data": {
+        "spot": [
+            {
+                "currency": "USDT",
+                "balance": 0,
+                "margin": 0
+            },
+            {
+                "currency": "BTC",
+                "balance": 0,
+                "margin": 0
+            }
+            ...
+        ]
+    }
+}
+```
+
+### 响应数据
+
+字段名称      | 数据类型 | 描述
+--------- | --------- | -----------
+spot     | object    | 现货账户余额
+{ currency | string | 币种
+balance | float | 可用余额
+margin } | float | 冻结金额
 
