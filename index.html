@@ -207,7 +207,7 @@
   color: #f92672;
 }
 </style>
-<link href="stylesheets/screen-13079b8f.css" rel="stylesheet" media="screen" />
+<link href="stylesheets/screen-fec38a05.css" rel="stylesheet" media="screen" />
 <link href="stylesheets/print-bd3b910e.css" rel="stylesheet" media="print" />
   <script src="javascripts/all-c5541673.js"></script>
 </head>
@@ -288,6 +288,14 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#870c0ab88b" class="toc-h2 toc-link" data-title="账户余额">账户余额</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#0a97ff03df" class="toc-h1 toc-link" data-title="现货">现货</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#fd6ce2a756" class="toc-h2 toc-link" data-title="下单">下单</a>
                   </li>
               </ul>
           </li>
@@ -1068,6 +1076,220 @@ function ArrayToString(array $arr) {
 <td>margin }</td>
 <td>float</td>
 <td>冻结金额</td>
+</tr>
+</tbody></table>
+<h1 id='0a97ff03df'>现货</h1><h2 id='fd6ce2a756'>下单</h2>
+<p>限频值: 10次/1s</p>
+
+<p>发送一个新订单到BFEX以进行撮合.</p>
+<h3 id='http-7'>HTTP 请求</h3>
+<ul>
+<li>POST <code>/open/spot/order/place</code></li>
+</ul>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"btcusdt"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">11260.34</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a001"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='1f9ac54b15-2'>请求参数</h3>
+<table><thead>
+<tr>
+<th>参数名称</th>
+<th>数据类型</th>
+<th>是否必需</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>true</td>
+<td>NA</td>
+<td>交易对,即 btcusdt, ethusdt... (取值参考 <code>GET /open/spot/products</code>)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>true</td>
+<td>NA</td>
+<td>订单类型,包括 buy-market, sell-market, buy-limit, sell-limit, buy-trigger, sell-trigger</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>string</td>
+<td>true</td>
+<td>NA</td>
+<td>订单交易量(市价买单为订单交易额)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>string</td>
+<td>false</td>
+<td>NA</td>
+<td>订单价格 (对市价单无效)</td>
+</tr>
+<tr>
+<td>stop-price</td>
+<td>string</td>
+<td>false</td>
+<td>NA</td>
+<td>止盈止损订单触发价格</td>
+</tr>
+<tr>
+<td>operator</td>
+<td>string</td>
+<td>false</td>
+<td>NA</td>
+<td>止盈止损订单触发价运算符 gte – greater than and equal (&gt;=), lte – less than and equal (&lt;=)</td>
+</tr>
+<tr>
+<td>client_order_id</td>
+<td>string</td>
+<td>fase</td>
+<td>NA</td>
+<td>用户自编订单号（最大长度64个字符，须在24小时内保持唯一性）</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"cashed"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"closed_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"coin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1597306135</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fee_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"filled"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"instrument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USDT"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"pid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"273904828417"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">11260.34</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">112.6034</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"已创建"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status_code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCUSDT"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"trigger_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='2213f4c32f-7'>响应数据</h3>
+<table><thead>
+<tr>
+<th>字段名称</th>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pid</td>
+<td>integer</td>
+<td>订单号</td>
+</tr>
+<tr>
+<td>client_order_id</td>
+<td>integer</td>
+<td>用户自编订单号</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>交易对</td>
+</tr>
+<tr>
+<td>instrument</td>
+<td>string</td>
+<td>交易对名称</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>float</td>
+<td>数量</td>
+</tr>
+<tr>
+<td>price</td>
+<td>float</td>
+<td>价格</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>float</td>
+<td>金额。市价买时等于 Amount，其他情况等于 Amount*Price</td>
+</tr>
+<tr>
+<td>coin</td>
+<td>string</td>
+<td>交易币种。对应 BTC/USDT 中的 BTC</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>基础币种。对应 BTC/USDT 中的 USDT</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>float</td>
+<td>手续费</td>
+</tr>
+<tr>
+<td>fee_currency</td>
+<td>string</td>
+<td>手续费币种</td>
+</tr>
+<tr>
+<td>filled</td>
+<td>float</td>
+<td>成交数量</td>
+</tr>
+<tr>
+<td>cashed</td>
+<td>float</td>
+<td>成交金额</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>订单状态文字描述</td>
+</tr>
+<tr>
+<td>status_code</td>
+<td>integer</td>
+<td>订单状态值</td>
+</tr>
+<tr>
+<td>trigger_price</td>
+<td>float</td>
+<td>触发价</td>
+</tr>
+<tr>
+<td>trigger_type</td>
+<td>string</td>
+<td>订单触发价运算符 gte – greater than and equal (&gt;=), lte – less than and equal (&lt;=)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>下单类型</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>integer</td>
+<td>下单时间戳,单位秒</td>
+</tr>
+<tr>
+<td>closed_at</td>
+<td>integer</td>
+<td>成交时间戳,单位秒</td>
 </tr>
 </tbody></table>
 
