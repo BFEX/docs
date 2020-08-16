@@ -504,6 +504,8 @@ margin } | float | 冻结金额
 
 - POST `/open/spot/order/place`
 
+> Query body:
+
 ```json
 {
     "symbol": "btcusdt",
@@ -592,6 +594,50 @@ type | string | 下单类型
 created_at | integer | 下单时间戳,单位秒
 closed_at | integer | 成交时间戳,单位秒
 
+## 撤销委托
+
+此接口发送一个撤销订单的请求。
+
+<aside class="warning">此接口只提交取消请求，实际取消结果需要通过订单状态，撮合状态等接口来确认。</aside>
+
+#### HTTP 请求
+
+- POST `/open/spot/order/cancel`
+
+### 请求参数
+
+| 参数名称     | 是否必须 | 类型     | 描述           | 默认值  | 取值范围 |
+| -------- | ---- | ------ | ------------ | ---- | ---- |
+| pid | true | string | 订单ID |      |      |
+| client_order_id | false | string | 用户自编订单号
+
+<aside class="notice">如果两个参数都填入,系统自动忽略 `client_order_id`</aside>
+
+> Query body:
+
+```json
+{
+    "pid": "1373064724486"
+}
+```
+
+### 响应数据
+
+返回的主数据对象是一个对应下单单号的字符串
+
+
+> Response:
+
+```json
+{
+    "status": 200,
+    "msg": "ok",
+    "data": {
+        "pid": "1373064724486"
+    }
+}
+```
+
 ## 当前委托
 
 查询已提交但是仍未完全成交或未被撤销的订单
@@ -634,7 +680,6 @@ page      | integer   | false    | 1       | 翻页参数 | 视乎数据量有�
                 "quantity": 11260.34,
                 "status": "已创建",
                 "status_code": 2,
-                "status_desc": "已创建",
                 "symbol": "BTCUSDT",
                 "trigger_price": 0,
                 "trigger_type": "",
@@ -675,4 +720,149 @@ trigger_type | string | 订单触发价运算符 gte – greater than and equal 
 type | string | 下单类型
 created_at } | integer | 成交时间戳,单位秒
 
+## 历史委托
+
+- GET `/open/spot/order/history`
+
+### 请求参数
+
+ 参数名称 | 数据类型 | 是否必需 | 默认值 | 描述
+-------|-------|-------|-------|-------
+page|integer|false| 1 |页码
+size|integer|false| 50 | 每页数据量, 最小5条每页, 最大50条每页
+
+> Response:
+
+```json
+{
+    "status": 200,
+    "msg": "ok",
+    "data": {
+        "total": 141,
+        "hasMore": true,
+        "currentPage": 1,
+        "lastPage": 29,
+        "pageSize": 5,
+        "list": [
+            {
+                "amount": 1,
+                "coin": "BTC",
+                "created_at": 1597473878,
+                "currency": "USDT",
+                "fee": 22.54072,
+                "fee_currency": "USDT",
+                "filled": 1,
+                "instrument": "BTC/USDT",
+                "pid": "254337578172417",
+                "price": 11260.34,
+                "quantity": 11260.34,
+                "status": "完全成交",
+                "status_code": 5,
+                "symbol": "BTCUSDT",
+                "trigger_price": 0,
+                "trigger_type": "",
+                "type": "sell-limit"
+            }
+            ...
+        ]
+    }
+}
+```
+
+### 响应数据
+
+字段名称 | 数据类型 | 描述
+------- | ------- | -----
+total     | integer    | 总数据量
+hasMore   | boolean    | 是否还有下一页
+currentPage | integer  | 当前页码
+lastPage  | integer    | 最后一页页码
+list      | object     | 历史委托数据
+{ amount | float | 数量
+client_order_id | string | 用户自编订单号
+symbol | string | 交易对
+instrument | string | 交易对名称
+amount | float | 数量
+price | float | 价格
+quantity | float | 金额。市价买时等于 Amount，其他情况等于 Amount*Price
+coin | string | 交易币种。对应 BTC/USDT 中的 BTC
+currency | string | 基础币种。对应 BTC/USDT 中的 USDT
+fee | float | 手续费
+fee_currency | string | 手续费币种
+filled | float | 成交数量
+cashed | float | 成交金额
+status | string | 订单状态文字描述
+status_code | integer | 订单状态值
+trigger_price | float | 触发价
+trigger_type | string | 订单触发价运算符 gte – greater than and equal (>=), lte – less than and equal (<=)
+type | string | 下单类型,含义请查看 `POST /open/spot/order/place` 下单类型部分
+created_at } | integer | 成交时间戳,单位秒
+
+## 历史成交
+
+- GET `/open/spot/order/dealhistory`
+
+### 请求参数
+
+ 参数名称 | 数据类型 | 是否必需 | 默认值 | 描述
+-------|-------|-------|-------|-------
+page|integer|false| 1 |页码
+size|integer|false| 50 | 每页数据量, 最小5条每页, 最大50条每页
+
+> Response:
+
+```json
+{
+    "status": 200,
+    "msg": "ok",
+    "data": {
+        "total": 119,
+        "hasMore": true,
+        "currentPage": 1,
+        "lastPage": 24,
+        "pageSize": 5,
+        "list": [
+            {
+                "amount": 1,
+                "coin": "BTC",
+                "created_at": 1597473878,
+                "currency": "USDT",
+                "fee": 0.002,
+                "fee_currency": "BTC",
+                "instrument": "BTC/USDT",
+                "pid": "41976659969",
+                "price": 11270.36,
+                "seqid": 13597,
+                "symbol": "BTCUSDT",
+                "trigger_type": "",
+                "type": "buy-limit"
+            }
+        ]
+    }
+}
+```
+
+### 响应数据
+
+字段名称 | 数据类型 | 描述
+------- | ------- | -----
+total     | integer    | 总数据量
+hasMore   | boolean    | 是否还有下一页
+currentPage | integer  | 当前页码
+lastPage  | integer    | 最后一页页码
+list      | object     | 历史成交数据
+{ seqid | integer | 顺序id 
+pid | string | 订单id 
+amount | float | 数量
+symbol | string | 交易对
+instrument | string | 交易对名称
+amount | float | 数量
+price | float | 价格
+coin | string | 交易币种。对应 BTC/USDT 中的 BTC
+currency | string | 基础币种。对应 BTC/USDT 中的 USDT
+fee | float | 手续费
+fee_currency | string | 手续费币种
+trigger_type | string | 订单触发价运算符 gte – greater than and equal (>=), lte – less than and equal (<=)
+type | string | 下单类型,含义请查看 `POST /open/spot/order/place` 下单类型部分
+created_at } | integer | 创建时间,单位秒
 
