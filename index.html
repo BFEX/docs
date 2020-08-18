@@ -207,7 +207,7 @@
   color: #f92672;
 }
 </style>
-<link href="stylesheets/screen-13079b8f.css" rel="stylesheet" media="screen" />
+<link href="stylesheets/screen-fec38a05.css" rel="stylesheet" media="screen" />
 <link href="stylesheets/print-bd3b910e.css" rel="stylesheet" media="print" />
   <script src="javascripts/all-c5541673.js"></script>
 </head>
@@ -280,6 +280,34 @@
                   </li>
                   <li>
                     <a href="#af47f1ea1c" class="toc-h2 toc-link" data-title="最新成交">最新成交</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#2a0d0be224" class="toc-h1 toc-link" data-title="账户相关">账户相关</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#870c0ab88b" class="toc-h2 toc-link" data-title="账户余额">账户余额</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#0a97ff03df" class="toc-h1 toc-link" data-title="现货">现货</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#fd6ce2a756" class="toc-h2 toc-link" data-title="下单">下单</a>
+                  </li>
+                  <li>
+                    <a href="#3a8264c8e2" class="toc-h2 toc-link" data-title="撤销委托">撤销委托</a>
+                  </li>
+                  <li>
+                    <a href="#7454c3387f" class="toc-h2 toc-link" data-title="当前委托">当前委托</a>
+                  </li>
+                  <li>
+                    <a href="#6d4fb4cfcd" class="toc-h2 toc-link" data-title="历史委托">历史委托</a>
+                  </li>
+                  <li>
+                    <a href="#dd0d215348" class="toc-h2 toc-link" data-title="历史成交">历史成交</a>
                   </li>
               </ul>
           </li>
@@ -360,7 +388,7 @@ table th {
 <p>一个合法的请求由以下几部分组成：</p>
 
 <ul>
-<li>方法请求地址：即访问服务器地址 api.huobi.pro，比如 api.huobi.pro/v1/order/orders。</li>
+<li>方法请求地址：即访问服务器地址 demo.com，比如 demo.com/open/spot/kline。</li>
 <li>请求头部：Content-Type: application/json </li>
 <li>API 访问Id（AccessKeyId）：您申请的 API Key 中的 Access Key。</li>
 <li>签名方法（SignatureMethod）：用户计算签名的基于哈希的协议，此处使用 HmacSHA256。</li>
@@ -1004,6 +1032,931 @@ function ArrayToString(array $arr) {
 <td>time }</td>
 <td>long</td>
 <td>时间戳，单位秒</td>
+</tr>
+</tbody></table>
+<h1 id='2a0d0be224'>账户相关</h1><h2 id='870c0ab88b'>账户余额</h2><h3 id='http-6'>HTTP 请求</h3>
+<ul>
+<li>GET <code>/open/user/assets</code></li>
+</ul>
+
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"spot"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"margin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"balance"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"margin"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+            </span><span class="err">...</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='2213f4c32f-6'>响应数据</h3>
+<table><thead>
+<tr>
+<th>字段名称</th>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>spot</td>
+<td>object</td>
+<td>现货账户余额</td>
+</tr>
+<tr>
+<td>{ currency</td>
+<td>string</td>
+<td>币种</td>
+</tr>
+<tr>
+<td>balance</td>
+<td>float</td>
+<td>可用余额</td>
+</tr>
+<tr>
+<td>margin }</td>
+<td>float</td>
+<td>冻结金额</td>
+</tr>
+</tbody></table>
+<h1 id='0a97ff03df'>现货</h1><h2 id='fd6ce2a756'>下单</h2>
+<p>限频值: 10次/1s</p>
+
+<p>发送一个新订单到BFEX以进行撮合.</p>
+<h3 id='http-7'>HTTP 请求</h3>
+<ul>
+<li>POST <code>/open/spot/order/place</code></li>
+</ul>
+
+<blockquote>
+<p>Query body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"btcusdt"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">11260.34</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a001"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='1f9ac54b15-2'>请求参数</h3>
+<table><thead>
+<tr>
+<th>参数名称</th>
+<th>数据类型</th>
+<th>是否必需</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>true</td>
+<td>NA</td>
+<td>交易对,即 btcusdt, ethusdt... (取值参考 <code>GET /open/spot/products</code>)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>true</td>
+<td>NA</td>
+<td>订单类型,包括 buy-market, sell-market, buy-limit, sell-limit, buy-trigger, sell-trigger</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>string</td>
+<td>true</td>
+<td>NA</td>
+<td>订单交易量(市价买单为订单交易额)</td>
+</tr>
+<tr>
+<td>price</td>
+<td>string</td>
+<td>false</td>
+<td>NA</td>
+<td>订单价格 (对市价单无效)</td>
+</tr>
+<tr>
+<td>stop-price</td>
+<td>string</td>
+<td>false</td>
+<td>NA</td>
+<td>止盈止损订单触发价格</td>
+</tr>
+<tr>
+<td>operator</td>
+<td>string</td>
+<td>false</td>
+<td>NA</td>
+<td>止盈止损订单触发价运算符 gte – greater than and equal (&gt;=), lte – less than and equal (&lt;=)</td>
+</tr>
+<tr>
+<td>client_order_id</td>
+<td>string</td>
+<td>fase</td>
+<td>NA</td>
+<td>用户自编订单号（最大长度64个字符，须在24小时内保持唯一性）</td>
+</tr>
+</tbody></table>
+<h3 id='0b4cafe63c'>下单类型</h3>
+<table><thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>buy-market</td>
+<td>市价买入</td>
+</tr>
+<tr>
+<td>sell-market</td>
+<td>市价卖出</td>
+</tr>
+<tr>
+<td>buy-limit</td>
+<td>限价买入</td>
+</tr>
+<tr>
+<td>sell-limit</td>
+<td>限价卖出</td>
+</tr>
+<tr>
+<td>buy-trigger</td>
+<td>买入触发, 止盈止损</td>
+</tr>
+<tr>
+<td>sell-trigger</td>
+<td>卖出触发, 止盈止损</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"cashed"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"closed_at"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"coin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1597306135</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fee_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"filled"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"instrument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USDT"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"pid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"273904828417"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">11260.34</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">112.6034</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"已创建"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status_code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCUSDT"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"trigger_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='2213f4c32f-7'>响应数据</h3>
+<table><thead>
+<tr>
+<th>字段名称</th>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pid</td>
+<td>integer</td>
+<td>订单号</td>
+</tr>
+<tr>
+<td>client_order_id</td>
+<td>string</td>
+<td>用户自编订单号</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>交易对</td>
+</tr>
+<tr>
+<td>instrument</td>
+<td>string</td>
+<td>交易对名称</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>float</td>
+<td>数量</td>
+</tr>
+<tr>
+<td>price</td>
+<td>float</td>
+<td>价格</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>float</td>
+<td>金额。市价买时等于 Amount，其他情况等于 Amount*Price</td>
+</tr>
+<tr>
+<td>coin</td>
+<td>string</td>
+<td>交易币种。对应 BTC/USDT 中的 BTC</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>基础币种。对应 BTC/USDT 中的 USDT</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>float</td>
+<td>手续费</td>
+</tr>
+<tr>
+<td>fee_currency</td>
+<td>string</td>
+<td>手续费币种</td>
+</tr>
+<tr>
+<td>filled</td>
+<td>float</td>
+<td>成交数量</td>
+</tr>
+<tr>
+<td>cashed</td>
+<td>float</td>
+<td>成交金额</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>订单状态文字描述</td>
+</tr>
+<tr>
+<td>status_code</td>
+<td>integer</td>
+<td>订单状态值</td>
+</tr>
+<tr>
+<td>trigger_price</td>
+<td>float</td>
+<td>触发价</td>
+</tr>
+<tr>
+<td>trigger_type</td>
+<td>string</td>
+<td>订单触发价运算符 gte – greater than and equal (&gt;=), lte – less than and equal (&lt;=)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>下单类型</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>integer</td>
+<td>下单时间戳,单位秒</td>
+</tr>
+<tr>
+<td>closed_at</td>
+<td>integer</td>
+<td>成交时间戳,单位秒</td>
+</tr>
+</tbody></table>
+<h2 id='3a8264c8e2'>撤销委托</h2>
+<p>此接口发送一个撤销订单的请求。</p>
+
+<aside class="warning">此接口只提交取消请求，实际取消结果需要通过订单状态，撮合状态等接口来确认。</aside>
+<h4 id='http-8'>HTTP 请求</h4>
+<ul>
+<li>POST <code>/open/spot/order/cancel</code></li>
+</ul>
+<h3 id='1f9ac54b15-3'>请求参数</h3>
+<table><thead>
+<tr>
+<th>参数名称</th>
+<th>是否必须</th>
+<th>类型</th>
+<th>描述</th>
+<th>默认值</th>
+<th>取值范围</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pid</td>
+<td>true</td>
+<td>string</td>
+<td>订单ID</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>client_order_id</td>
+<td>false</td>
+<td>string</td>
+<td>用户自编订单号</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<aside class="notice">如果两个参数都填入,系统自动忽略 `client_order_id`</aside>
+
+<blockquote>
+<p>Query body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"pid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1373064724486"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='2213f4c32f-8'>响应数据</h3>
+<p>返回的主数据对象是一个对应下单单号的字符串</p>
+
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"pid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1373064724486"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h2 id='7454c3387f'>当前委托</h2>
+<p>查询已提交但是仍未完全成交或未被撤销的订单</p>
+<h3 id='http-9'>HTTP 请求</h3>
+<ul>
+<li>GET <code>/open/spot/order/open</code></li>
+</ul>
+
+<table><thead>
+<tr>
+<th>参数</th>
+<th>数据类型</th>
+<th>是否必须</th>
+<th>默认值</th>
+<th>描述</th>
+<th>取值范围</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>size</td>
+<td>integer</td>
+<td>false</td>
+<td>50</td>
+<td>每页数据量</td>
+<td>[5, 50]</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>false</td>
+<td>1</td>
+<td>翻页参数</td>
+<td>视乎数据量有多少</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">894</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"hasMore"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currentPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"list"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"coin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1597473866</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"fee_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"filled"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"instrument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"pid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"254317814611969"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">11260.34</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">11260.34</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"已创建"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"status_code"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCUSDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"trigger_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+            </span><span class="err">...</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='2213f4c32f-9'>响应数据</h3>
+<table><thead>
+<tr>
+<th>字段名称</th>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total</td>
+<td>integer</td>
+<td>总数据量</td>
+</tr>
+<tr>
+<td>hasMore</td>
+<td>boolean</td>
+<td>是否还有下一页</td>
+</tr>
+<tr>
+<td>currentPage</td>
+<td>integer</td>
+<td>当前页码</td>
+</tr>
+<tr>
+<td>lastPage</td>
+<td>integer</td>
+<td>最后一页页码</td>
+</tr>
+<tr>
+<td>list</td>
+<td>object</td>
+<td>当前委托数据</td>
+</tr>
+<tr>
+<td>{ amount</td>
+<td>float</td>
+<td>数量</td>
+</tr>
+<tr>
+<td>client_order_id</td>
+<td>string</td>
+<td>用户自编订单号</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>交易对</td>
+</tr>
+<tr>
+<td>instrument</td>
+<td>string</td>
+<td>交易对名称</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>float</td>
+<td>数量</td>
+</tr>
+<tr>
+<td>price</td>
+<td>float</td>
+<td>价格</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>float</td>
+<td>金额。市价买时等于 Amount，其他情况等于 Amount*Price</td>
+</tr>
+<tr>
+<td>coin</td>
+<td>string</td>
+<td>交易币种。对应 BTC/USDT 中的 BTC</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>基础币种。对应 BTC/USDT 中的 USDT</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>float</td>
+<td>手续费</td>
+</tr>
+<tr>
+<td>fee_currency</td>
+<td>string</td>
+<td>手续费币种</td>
+</tr>
+<tr>
+<td>filled</td>
+<td>float</td>
+<td>成交数量</td>
+</tr>
+<tr>
+<td>cashed</td>
+<td>float</td>
+<td>成交金额</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>订单状态文字描述</td>
+</tr>
+<tr>
+<td>status_code</td>
+<td>integer</td>
+<td>订单状态值</td>
+</tr>
+<tr>
+<td>trigger_price</td>
+<td>float</td>
+<td>触发价</td>
+</tr>
+<tr>
+<td>trigger_type</td>
+<td>string</td>
+<td>订单触发价运算符 gte – greater than and equal (&gt;=), lte – less than and equal (&lt;=)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>下单类型</td>
+</tr>
+<tr>
+<td>created_at }</td>
+<td>integer</td>
+<td>成交时间戳,单位秒</td>
+</tr>
+</tbody></table>
+<h2 id='6d4fb4cfcd'>历史委托</h2>
+<ul>
+<li>GET <code>/open/spot/order/history</code></li>
+</ul>
+<h3 id='1f9ac54b15-4'>请求参数</h3>
+<table><thead>
+<tr>
+<th>参数名称</th>
+<th>数据类型</th>
+<th>是否必需</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>false</td>
+<td>1</td>
+<td>页码</td>
+</tr>
+<tr>
+<td>size</td>
+<td>integer</td>
+<td>false</td>
+<td>50</td>
+<td>每页数据量, 最小5条每页, 最大50条每页</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">141</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"hasMore"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currentPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">29</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"list"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"coin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1597473878</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">22.54072</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"fee_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"filled"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"instrument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"pid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"254337578172417"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">11260.34</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mf">11260.34</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"完全成交"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"status_code"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCUSDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"trigger_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sell-limit"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+            </span><span class="err">...</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='2213f4c32f-10'>响应数据</h3>
+<table><thead>
+<tr>
+<th>字段名称</th>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total</td>
+<td>integer</td>
+<td>总数据量</td>
+</tr>
+<tr>
+<td>hasMore</td>
+<td>boolean</td>
+<td>是否还有下一页</td>
+</tr>
+<tr>
+<td>currentPage</td>
+<td>integer</td>
+<td>当前页码</td>
+</tr>
+<tr>
+<td>lastPage</td>
+<td>integer</td>
+<td>最后一页页码</td>
+</tr>
+<tr>
+<td>list</td>
+<td>object</td>
+<td>历史委托数据</td>
+</tr>
+<tr>
+<td>{ amount</td>
+<td>float</td>
+<td>数量</td>
+</tr>
+<tr>
+<td>client_order_id</td>
+<td>string</td>
+<td>用户自编订单号</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>交易对</td>
+</tr>
+<tr>
+<td>instrument</td>
+<td>string</td>
+<td>交易对名称</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>float</td>
+<td>数量</td>
+</tr>
+<tr>
+<td>price</td>
+<td>float</td>
+<td>价格</td>
+</tr>
+<tr>
+<td>quantity</td>
+<td>float</td>
+<td>金额。市价买时等于 Amount，其他情况等于 Amount*Price</td>
+</tr>
+<tr>
+<td>coin</td>
+<td>string</td>
+<td>交易币种。对应 BTC/USDT 中的 BTC</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>基础币种。对应 BTC/USDT 中的 USDT</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>float</td>
+<td>手续费</td>
+</tr>
+<tr>
+<td>fee_currency</td>
+<td>string</td>
+<td>手续费币种</td>
+</tr>
+<tr>
+<td>filled</td>
+<td>float</td>
+<td>成交数量</td>
+</tr>
+<tr>
+<td>cashed</td>
+<td>float</td>
+<td>成交金额</td>
+</tr>
+<tr>
+<td>status</td>
+<td>string</td>
+<td>订单状态文字描述</td>
+</tr>
+<tr>
+<td>status_code</td>
+<td>integer</td>
+<td>订单状态值</td>
+</tr>
+<tr>
+<td>trigger_price</td>
+<td>float</td>
+<td>触发价</td>
+</tr>
+<tr>
+<td>trigger_type</td>
+<td>string</td>
+<td>订单触发价运算符 gte – greater than and equal (&gt;=), lte – less than and equal (&lt;=)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>下单类型,含义请查看 <code>POST /open/spot/order/place</code> 下单类型部分</td>
+</tr>
+<tr>
+<td>created_at }</td>
+<td>integer</td>
+<td>成交时间戳,单位秒</td>
+</tr>
+</tbody></table>
+<h2 id='dd0d215348'>历史成交</h2>
+<ul>
+<li>GET <code>/open/spot/order/dealhistory</code></li>
+</ul>
+<h3 id='1f9ac54b15-5'>请求参数</h3>
+<table><thead>
+<tr>
+<th>参数名称</th>
+<th>数据类型</th>
+<th>是否必需</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>false</td>
+<td>1</td>
+<td>页码</td>
+</tr>
+<tr>
+<td>size</td>
+<td>integer</td>
+<td>false</td>
+<td>50</td>
+<td>每页数据量, 最小5条每页, 最大50条每页</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ok"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">119</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"hasMore"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currentPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"lastPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"pageSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"list"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"coin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="mi">1597473878</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.002</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"fee_currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"instrument"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"pid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"41976659969"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">11270.36</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"seqid"</span><span class="p">:</span><span class="w"> </span><span class="mi">13597</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTCUSDT"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"trigger_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"buy-limit"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='2213f4c32f-11'>响应数据</h3>
+<table><thead>
+<tr>
+<th>字段名称</th>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>total</td>
+<td>integer</td>
+<td>总数据量</td>
+</tr>
+<tr>
+<td>hasMore</td>
+<td>boolean</td>
+<td>是否还有下一页</td>
+</tr>
+<tr>
+<td>currentPage</td>
+<td>integer</td>
+<td>当前页码</td>
+</tr>
+<tr>
+<td>lastPage</td>
+<td>integer</td>
+<td>最后一页页码</td>
+</tr>
+<tr>
+<td>list</td>
+<td>object</td>
+<td>历史成交数据</td>
+</tr>
+<tr>
+<td>{ seqid</td>
+<td>integer</td>
+<td>顺序id</td>
+</tr>
+<tr>
+<td>pid</td>
+<td>string</td>
+<td>订单id</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>float</td>
+<td>数量</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>交易对</td>
+</tr>
+<tr>
+<td>instrument</td>
+<td>string</td>
+<td>交易对名称</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>float</td>
+<td>数量</td>
+</tr>
+<tr>
+<td>price</td>
+<td>float</td>
+<td>价格</td>
+</tr>
+<tr>
+<td>coin</td>
+<td>string</td>
+<td>交易币种。对应 BTC/USDT 中的 BTC</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>基础币种。对应 BTC/USDT 中的 USDT</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>float</td>
+<td>手续费</td>
+</tr>
+<tr>
+<td>fee_currency</td>
+<td>string</td>
+<td>手续费币种</td>
+</tr>
+<tr>
+<td>trigger_type</td>
+<td>string</td>
+<td>订单触发价运算符 gte – greater than and equal (&gt;=), lte – less than and equal (&lt;=)</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>下单类型,含义请查看 <code>POST /open/spot/order/place</code> 下单类型部分</td>
+</tr>
+<tr>
+<td>created_at }</td>
+<td>integer</td>
+<td>创建时间,单位秒</td>
 </tr>
 </tbody></table>
 
